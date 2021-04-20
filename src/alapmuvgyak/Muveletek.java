@@ -211,6 +211,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajl.setText("Fájl");
 
         mnuFajlMegnyit.setText("Megnyit");
+        mnuFajlMegnyit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFajlMegnyitActionPerformed(evt);
+            }
+        });
         mnuFajl.add(mnuFajlMegnyit);
 
         mnuFajlMent.setText("Ment");
@@ -374,6 +379,32 @@ public class Muveletek extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "A mentés megszakítva!", "MENTÉS SIKERTELEN!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_mnuFajlMentesmaskentActionPerformed
+
+    private void mnuFajlMegnyitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMegnyitActionPerformed
+        JFileChooser fc = new JFileChooser(new File("."));
+        fc.setDialogTitle("Megnyitás");
+        
+        fc.setAcceptAllFileFilterUsed(false);
+        
+        FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("PNG és GIF fájlok", "png", "gif");
+        fc.addChoosableFileFilter(imgFilter);
+        FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("csak szöveg (*.txt)", "txt");
+        fc.addChoosableFileFilter(txtFilter);
+        FileNameExtensionFilter szbFilter = new FileNameExtensionFilter("saját (*.szb)", "szb");
+        fc.addChoosableFileFilter(szbFilter);
+        
+        fc.setFileFilter(txtFilter);
+        
+        
+        int valasztottGombErteke = fc.showOpenDialog(this);
+        if(valasztottGombErteke == JFileChooser.APPROVE_OPTION){
+            File f = fc.getSelectedFile();
+            String fn = f.getPath();
+            lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
+        }else{
+            JOptionPane.showMessageDialog(this, "A megnyitás megszakítva!", "MEGNYITÁS SIKERTELEN!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
 
     /**
      * @param args the command line arguments
