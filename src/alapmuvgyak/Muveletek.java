@@ -325,7 +325,7 @@ public class Muveletek extends javax.swing.JFrame {
             if (f.isDirectory()) {
                 lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
                 try {
-                    Files.write(Paths.get(f.getPath(), "stat.txt"), "Statisztika: ".getBytes());
+                    Files.write(Paths.get(f.getPath(), "stat.txt"),  tartalomOsszeallitasa().getBytes());
                 } catch (IOException ex) {
                     Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -370,7 +370,7 @@ public class Muveletek extends javax.swing.JFrame {
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "." + kit[0] + "</html>");
             try {
                 if (mentes) {
-                    Files.write(Paths.get(fn), "Statisztika: ".getBytes());
+                    Files.write(path, tartalomOsszeallitasa().getBytes());
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
@@ -478,4 +478,9 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGyakorlas;
     private javax.swing.JTextField txtEredmeny;
     // End of variables declaration//GEN-END:variables
+
+    private String tartalomOsszeallitasa() {
+        String statisztika = "Alapműveletek gyakorlása, statisztika";
+        return statisztika;
+    }
 }
