@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -13,14 +14,24 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Muveletek extends javax.swing.JFrame {
-
+    
+    Random rnd = new Random();
+    int eredmeny = 0;
+    int szam1 = 0;
+    int szam2 = 0;
+    int osszKerdesekSzama = 0;
+    int OsztasKerdesSzama = 0;
+    int SzorzasKerdesSzama = 0;
+    int OsszProbakSzama = 0;
+    
+    int szorzasProbakSzama, osztasProbakSzama;
     /**
      * Creates new form Muveletek
      */
     public Muveletek() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -254,6 +265,11 @@ public class Muveletek extends javax.swing.JFrame {
 
         buttonGroup1.add(menuMuveletekOsztas);
         menuMuveletekOsztas.setText("Osztás");
+        menuMuveletekOsztas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMuveletekOsztasActionPerformed(evt);
+            }
+        });
         menuMuveletekOsszeadas.add(menuMuveletekOsztas);
 
         buttonGroup1.add(menuMuveletekSzorzas);
@@ -305,7 +321,17 @@ public class Muveletek extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEllenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEllenorzesActionPerformed
+        OsszProbakSzama ++;
+        lblOsszProba.setText("Össz próbálkozások száma: "+ OsszProbakSzama);
         
+        if(menuMuveletekOsztas.isSelected()){
+            osztasProbakSzama ++;
+            lblOsztasProba.setText("Osztás: "+ osztasProbakSzama);
+        }else if(menuMuveletekSzorzas.isSelected()){
+            szorzasProbakSzama ++;
+            lblOsztasProba.setText("Osztás: "+ szorzasProbakSzama);
+        }
+                
     }//GEN-LAST:event_btnEllenorzesActionPerformed
 
     private void btnMegoldasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMegoldasActionPerformed
@@ -313,7 +339,14 @@ public class Muveletek extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
     private void menuMuveletekSzorzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMuveletekSzorzasActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
+        lblFeladat.setText(szam1 + " * " + szam2 + " = ");
+        osszKerdesekSzama ++;
+        lblOsszKerdes.setText("Össz kérdések száma: " + osszKerdesekSzama);
+        SzorzasKerdesSzama ++;
+        lblSzorzasKerdes.setText("Szorzás: " + SzorzasKerdesSzama);
     }//GEN-LAST:event_menuMuveletekSzorzasActionPerformed
 
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
@@ -406,6 +439,21 @@ public class Muveletek extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "A megnyitás megszakítva!", "MEGNYITÁS SIKERTELEN!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_mnuFajlMegnyitActionPerformed
+
+    private void menuMuveletekOsztasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMuveletekOsztasActionPerformed
+        int oszto, osztando;
+        boolean jo;
+        do{
+            oszto = (int)(Math.random()*101);
+            osztando = (int)(Math.random()*101);
+            jo = oszto != 0 && osztando % oszto == 0;
+        }while(!jo);
+        lblFeladat.setText(osztando + " / " + oszto + " = ");
+        osszKerdesekSzama ++;
+        lblOsszKerdes.setText("Össz kérdések száma: " + osszKerdesekSzama);
+        OsztasKerdesSzama ++;
+        lblOsztasKerdes.setText("Osztás: " + OsztasKerdesSzama);
+    }//GEN-LAST:event_menuMuveletekOsztasActionPerformed
 
     /**
      * @param args the command line arguments
