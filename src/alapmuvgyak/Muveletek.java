@@ -26,15 +26,16 @@ public class Muveletek extends javax.swing.JFrame {
     int OsszProbakSzama = 0;
     
     int szorzasProbakSzama, osztasProbakSzama;
-    
+    JLabel[] lblTomb;
+    String[] lblTextTomb;
     
     /**
      * Creates new form Muveletek
      */
     public Muveletek() {
         initComponents();
-        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
-        String[] lblTextTomb = new String[]{"Össz próbálkozások száma: "};
+        lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+        lblTextTomb = new String[]{"Össz Probálkozások száma: ", "Össz Probálkozások száma: ", "Összeadás: ", "Összeadás: ", "Kivonás: ", "Kivonás: ", "Osztás: ", "Osztás: ", "Szorzás: ", "Szorzás: "};
     }
     
     /**
@@ -447,20 +448,38 @@ public class Muveletek extends javax.swing.JFrame {
                 
                 List<String> stringlista = Files.readAllLines(path);
                 
-                
-                
-                /* 2.:*/
                 int lblIndex = 0;
                 for (int i = 0; i < stringlista.size(); i++) {
                     String egySor = stringlista.get(i);
-                    String[] adatok = egySor.split(": ");
-                    JLabel[] lbl = lblTomb[lblIndex + 1];
-                    lbl.setText("" + adatok[2]);
-                    adatok = adatok[1].split(" ");
-                    lbl = lblTomb[lblIndex];
-                    lbl.setText(lblTextTomb[lblIndex] + adatok[0]);
+                    String[] adatok = egySor.split("\\D+");
+                    JLabel lbl = lblTomb[lblIndex];
+                    lbl.setText(lblTextTomb[lblIndex] + adatok[1]);
+                    lbl = lblTomb[lblIndex + 1];
+                    lbl.setText(lblTextTomb[lblIndex + 1] + adatok[2]);
                     lblIndex += 2;
                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                /* 2.:*/
+//                for (int i = 0; i < stringlista.size(); i++) {
+//                    String egySor = stringlista.get(i);
+//                    String[] adatok = egySor.split(": ");
+//                    JLabel lbl = lblTomb[lblIndex + 1];
+//                    lbl.setText("" + adatok[2]);
+//                    adatok = adatok[1].split(" ");
+//                    lbl = lblTomb[lblIndex];
+//                    lbl.setText(lblTextTomb[lblIndex] + adatok[0]);
+//                    lblIndex += 2;
+//                }
                 
 //                //fejléc: össz
 //                String egySor = stringlista.get(1);
