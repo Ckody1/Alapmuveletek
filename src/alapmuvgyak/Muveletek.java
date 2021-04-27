@@ -26,11 +26,15 @@ public class Muveletek extends javax.swing.JFrame {
     int OsszProbakSzama = 0;
     
     int szorzasProbakSzama, osztasProbakSzama;
+    
+    
     /**
      * Creates new form Muveletek
      */
     public Muveletek() {
         initComponents();
+        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+        String[] lblTextTomb = new String[]{"Össz próbálkozások száma: "};
     }
     
     /**
@@ -439,11 +443,61 @@ public class Muveletek extends javax.swing.JFrame {
             Path path = Paths.get(fn);
             try{
                 byte[] bajtTomb = Files.readAllBytes(path);
-                List<String> stringlista = Files.readAllLines(path);
-                String egySor = stringlista.get(1);
-                String[] adatok = egySor.split(":");
-                "".trim();
+                byte egyByte = bajtTomb[1];
                 
+                List<String> stringlista = Files.readAllLines(path);
+                
+                
+                
+                /* 2.:*/
+                int lblIndex = 0;
+                for (int i = 0; i < stringlista.size(); i++) {
+                    String egySor = stringlista.get(i);
+                    String[] adatok = egySor.split(": ");
+                    JLabel[] lbl = lblTomb[lblIndex + 1];
+                    lbl.setText("" + adatok[2]);
+                    adatok = adatok[1].split(" ");
+                    lbl = lblTomb[lblIndex];
+                    lbl.setText(lblTextTomb[lblIndex] + adatok[0]);
+                    lblIndex += 2;
+                }
+                
+//                //fejléc: össz
+//                String egySor = stringlista.get(1);
+//                String[] adatok = egySor.split(": ");
+//                
+//                String proSzama = adatok[2];
+//                lblOsszProba.setText("Össz próbálkozások száma: " + proSzama);
+//                
+//                adatok = adatok[1].split(" ");
+//                String kerSzama = adatok[0];
+//                lblOsszKerdes.setText("Össz kérdések száma " + kerSzama);
+//                //"".trim();
+                
+//                //összeadás
+//                egySor = stringlista.get(2);
+//                adatok = egySor.split(": ");
+//                proSzama = adatok[2];
+//                lblOsszeadProba.setText("Összeadás: " +proSzama);
+//                adatok = adatok[1].split(" ");
+//                kerSzama = adatok[0];
+//                lblOsszeadKerdes.setText("Összead: " + kerSzama);
+//                
+//                //kivonás
+//                
+//                
+//                //osztás
+//                egySor = stringlista.get(4);
+//                adatok = egySor.split(": ");
+//                proSzama = adatok[2];
+//                lblOsszeadProba.setText("Összeadás: " +proSzama);
+//                adatok = adatok[1].split(" ");
+//                kerSzama = adatok[0];
+//                lblOsszeadKerdes.setText("Összead: " + kerSzama);
+//                
+//                //szorzás
+//                
+//                 
                 int temp = 67;
             } catch (IOException ex) {
                 Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
@@ -544,12 +598,11 @@ public class Muveletek extends javax.swing.JFrame {
     private String tartalomOsszeallitasa() {
         String statisztika = "Alapműveletek gyakorlása, statisztika";
         
-        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba};
         
         final int HE = 3;
         final int OSZZ_KERDES_HOSSZ = lblTomb[0].getText().length();
         final int OSSZ_PROBA_HOSSZ = lblTomb[1].getText().length();
-        for (int i = 0; i < lblTomb.length; i+=2) {
+        for (int i = 0; i < lblTomb.length - 1; i++) {
             String format = "%" + (OSZZ_KERDES_HOSSZ + HE) +"s% " + (OSSZ_PROBA_HOSSZ + HE) + "s\n";
             statisztika += String.format(format, lblTomb[i].getText(), lblTomb[i + 1].getText());
             
